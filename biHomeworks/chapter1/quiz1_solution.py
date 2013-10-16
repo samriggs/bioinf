@@ -1,6 +1,8 @@
 '''
 Created on Oct 14, 2013
 
+CODE CHALLENGE: Solve the Frequent Words Problem.
+https://beta.stepic.org/Bioinformatics-Algorithms-2/Hidden-Messages-in-the-Replication-Origin-2/#step-4
 @author: samriggs
 '''
 from bi_utils.helpers import sane_open
