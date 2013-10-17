@@ -22,4 +22,3 @@ def rev_comp():
         return comp_rev_seq.getvalue()
     
 print rev_comp()
-    
