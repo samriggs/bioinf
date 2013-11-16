@@ -40,4 +40,5 @@ def p_match(filename="stepic_dataset.txt", pat=''):
             else:
                 start += 1
 
-p_match()
+if (__name__ == "__main__"):
+    p_match()

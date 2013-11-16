@@ -11,38 +11,43 @@ from heapq import heappop, heapify
 import sys
 
 # File exists & is not empty. let's go to work. Exit otherwise.
-def freq_heap():
-    with sane_open("stepic_dataset.txt") as f:
+def freqSeqs(fullSeq='', seqLength='', returnHeap=True):
+    if (not fullSeq or not seqLength):
         # We will assume the file is well formed.
-        seq = f.readline()
-        size = int(f.readline())
-        
-        # populate sequences and count the # of times.
-        # need to count negatively b/c Python only has a minheap.
-        
-        # Making this dictionary is O(n)
-        seq_dict = defaultdict(int)
-        start = 1
-        end = size + 1
-        while ( len(seq[start:end]) is size ):
-            seq_dict[seq[start:end]] -= 1 
-            start += 1
-            end += 1
-    
-        # create min heap: O(n)
-        '''
-        Need to reverse all tuples inside list (O(n)) SO THAT THE NUMBERS ARE FIRST;
-        this allows for a heap to be made off the tuples
-        '''
+        with sane_open("stepic_dataset.txt") as f:
+            seq = f.readline()
+            size = int(f.readline())
+    else:
+        seq = fullSeq
+        size = int(seqLength)
+
+    # populate sequences and count the # of times.
+    # need to count negatively b/c Python only has a minheap.    
+    # Making this dictionary is O(n)    
+    seq_dict = defaultdict(int)
+    i = 0
+    while ( len(seq[i:size+i]) == size ):
+        seq_dict[seq[i:size+i]] -= 1
+        i += 1
+
+    # create min heap: O(n)
+    '''
+    Need to reverse all tuples inside list (O(n)) SO THAT THE NUMBERS ARE FIRST;
+    this allows for a heap to be made off the tuples
+    '''
+    if (returnHeap):
         min_heap = [tuple(reversed(x)) for x in seq_dict.items()]
         heapify( min_heap )
         return min_heap
+    else:
+        return seq_dict
     
-def most_common_seqs(minh):
+def mostCommon(minh):
     most_common_val = minh[0][0]
     current_item = heappop(minh)
     while (current_item[0] == most_common_val):
-        sys.stdout.write(current_item[1] + "    ")
+        sys.stdout.write(current_item[1] + " ")
         current_item = heappop(minh)
-        
-most_common_seqs(freq_heap())
+
+if (__name__ == "__main__"):
+    print mostCommon(freqSeqs())
